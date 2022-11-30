@@ -1,4 +1,5 @@
 import axios from "axios"
+import { useUrl } from "../utils/urls";
 
 export const FETCH_TODOS_START = "FETCH_TODOS_START";
 export const FETCH_TODOS_SUCCESS = "FETCH_TODOS_SUCCESS";
@@ -18,7 +19,7 @@ const headers = {
 
 export const getTodos = (user_id) => dispatch => {
     dispatch({type: FETCH_TODOS_START});
-    axios.get(`https://toodueapp.herokuapp.com/api/todos/${user_id}`, {headers})
+    axios.get(`${useUrl}/api/todos/${user_id}`, {headers})
         .then(res => {
             dispatch({type: FETCH_TODOS_SUCCESS, payload: res.data})
         }
@@ -30,7 +31,7 @@ export const getTodos = (user_id) => dispatch => {
 export const createTodo = (todo) => dispatch => {
     dispatch({type: CREATE_TODO_START});
     console.log(todo)
-    axios.post("https://toodueapp.herokuapp.com/api/todos", todo)
+    axios.post(`${useUrl}/api/todos`, todo)
         .then(res => {
             console.log(res)
             dispatch({type: CREATE_TODO_SUCCESS, payload: res.data})
@@ -43,7 +44,7 @@ export const createTodo = (todo) => dispatch => {
 
 export const deleteTodo = (todo_id) => dispatch => {
     dispatch({type: DELETE_TODO_START});
-    axios.delete(`https://toodueapp.herokuapp.com/api/todos/${todo_id}`)
+    axios.delete(`${useUrl}/api/todos/${todo_id}`)
         .then(res => {
             dispatch({type: DELETE_TODO_SUCCESS, payload:res.data})
         })
