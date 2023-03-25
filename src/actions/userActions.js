@@ -42,7 +42,6 @@ export const login = (user, setUser) => dispatch => {
     dispatch({ type: USER_LOGIN_START})
     axios.post(`${useUrl}/api/users/login/`, user).then(
         res => {
-            console.log(res.data.user)
             setUser({
                 user_name: "",
                 password: ""

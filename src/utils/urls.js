@@ -1,4 +1,4 @@
 // const localUrl = 'http://localhost:5000'
-const DeployUrl = "toodueappbackend-production.up.railway.app"
+const DeployUrl = "https://toodueappbackend-production.up.railway.app"
 
 export const useUrl = DeployUrl
