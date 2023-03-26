@@ -7,6 +7,7 @@ import PrivateRoute from './utils/PrivateRoute';
 import Todo from './components/Todo';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import QuickList from './components/QuickList';
 
 function App () {
 
@@ -33,6 +34,10 @@ function App () {
                                 <Todo />
                             </PrivateRoute>
                         }
+                    />
+                    <Route 
+                        path="/quick_list"
+                        element = { <QuickList /> }
                     />
                 </Routes>
             </div>

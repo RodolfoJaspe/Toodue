@@ -9,8 +9,9 @@ function Landing(){
     
         return (
             <div className="landing-outer">
-                <button onClick={() => navigate("/signup")}>Signup</button>
                 <button onClick={() => navigate("/login")}>Login</button>
+                <button onClick={() => navigate("/signup")}>Signup</button>
+                <button onClick={() => navigate("/quick_list")}>Quick List</button>
             </div>
         )
         

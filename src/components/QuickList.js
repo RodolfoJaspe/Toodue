@@ -1,21 +1,21 @@
 import React,{useEffect,useState} from 'react';
 import { connect } from 'react-redux';
 import Logout from './Logout';
-import {createTodo, getTodos} from "../actions/todosActions";
+import {createQuickTodo, getQuickTodos} from "../actions/todosActions";
 import"../styles/Todos.css";
 import { useNavigate } from 'react-router-dom';
 
-const Todos = ({user_name, user_id, todos, getTodos, createTodo}) => {
+const QuickList = ({user_name, user_id, todos, getQuickTodos, createQuickTodo}) => {
     const [ newTodo, setNewTodos ] = useState({
         todo_name : "",
-        user_id : user_id
+        // user_id : user_id
     })
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        getTodos(user_id)
-    },[getTodos,user_id])
+        getQuickTodos()
+    },[getQuickTodos,todos])
 
     const textBoxChanges = e => {
         e.persist();
@@ -27,7 +27,7 @@ const Todos = ({user_name, user_id, todos, getTodos, createTodo}) => {
 
   const formSubmit = (e) => {
       e.preventDefault();
-      createTodo(newTodo)
+      createQuickTodo(newTodo)
       setNewTodos({...newTodo, todo_name: ""})
   }
 
@@ -40,7 +40,7 @@ const Todos = ({user_name, user_id, todos, getTodos, createTodo}) => {
                 <Logout /> 
             </div>
             <div className='main-todos-div'>
-                <h2><b className='name'>{user_name}'s </b>2do lists</h2>
+                <h2><b className='name'>Quick </b>2do lists</h2>
                 <form 
                     onSubmit={formSubmit} 
                     className="add-todo-form"
@@ -61,7 +61,7 @@ const Todos = ({user_name, user_id, todos, getTodos, createTodo}) => {
                         <div 
                             className='todo' 
                             key={todo.todo_name}
-                            onClick={() => navigate(`/users/${user_id}/todos/${todo.todo_id}`)}
+                            // onClick={() => navigate(`/users/${user_id}/todos/${todo.todo_id}`)}
                             >
                             <p>{todo.todo_name}</p>
                         </div>
@@ -76,10 +76,10 @@ const Todos = ({user_name, user_id, todos, getTodos, createTodo}) => {
 
 const mapStateToProps = state => {
     return {
-        user_name: state.userReducer.user_name,
-        user_id: state.userReducer.user_id,
+        // user_name: state.userReducer.user_name,
+        // user_id: state.userReducer.user_id,
         todos: state.todosReducer.todos
     }
 }
 
-export default connect(mapStateToProps, {getTodos, createTodo})(Todos)
+export default connect(mapStateToProps, {getQuickTodos, createQuickTodo})(QuickList)
