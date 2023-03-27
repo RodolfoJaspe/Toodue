@@ -13,6 +13,12 @@ export const DELETE_TASK_START = "DELETE_TASK_START";
 export const DELETE_TASK_SUCCESS = "DELETE_TASK_SUCCESS";
 export const DELETE_TASK_FAILURE = "DELETE_TASK_FAILURE";
 
+export const CREATE_QUICK_TASK = "CREATE_QUICK_TASK";
+
+export const FETCH_QUICK_TASKS = "FETCH_QUICK_TASKS";
+
+export const DELETE_QUICK_TASKS = "DELETE_QUICK_TASKS";
+
 export const TOGGLE_TASK = "TOGGLE_TASK";
 
 
@@ -42,6 +48,19 @@ export const createTask = (task) => dispatch => {
             console.log(err)
             dispatch({type:CREATE_TASK_FAILURE})
         })
+}
+
+export const createQuickTask = (task) => dispatch => {
+    dispatch({type: CREATE_QUICK_TASK, payload: task});
+}
+
+export const getQuickTasks = () => dispatch => {
+    dispatch({type: FETCH_QUICK_TASKS});
+}
+
+export const deleteQuickTasks = (tasks) => dispatch => {
+    const newTasksList = tasks.filter(task => task.completed === false)
+    dispatch({type : DELETE_QUICK_TASKS, payload: newTasksList})
 }
 
 export const toggleTask = (task_id, tasks) => dispatch => {

@@ -52,7 +52,7 @@ const Todos = ({user_name, user_id, todos, getTodos, createTodo}) => {
                         id='todo_name'
                         value={newTodo.todo_name}
                         onChange={textBoxChanges}
-                        placeholder='Add new list'
+                        placeholder='List name'
                     />
                     <button className='add-button'>Add</button>
                 </form>
