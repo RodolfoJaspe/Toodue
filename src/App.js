@@ -2,7 +2,7 @@ import React from 'react';
 import Todos from './components/Todos';
 import "./styles/App.css";
 import Landing from './components/Landing';
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import PrivateRoute from './utils/PrivateRoute';
 import Todo from './components/Todo';
 import Login from './components/Login';
@@ -10,11 +10,11 @@ import Signup from './components/Signup';
 import QuickList from './components/QuickList';
 
 function App () {
-
+    
     return (
         <Router>
             <div className="app">
-                <h1 className="title">Toodue</h1> 
+                <h1 className="title"><Link to='/'>Toodue</Link></h1> 
                 <Routes>
                     <Route exact path="/" element={<Landing />}/>
                     <Route path="/login" element={<Login />}/>
@@ -42,7 +42,6 @@ function App () {
                 </Routes>
             </div>
         </Router>
-      
     );
 }
 

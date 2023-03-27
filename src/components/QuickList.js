@@ -1,85 +1,109 @@
-import React,{useEffect,useState} from 'react';
-import { connect } from 'react-redux';
-import Logout from './Logout';
-import {createQuickTodo, getQuickTodos} from "../actions/todosActions";
-import"../styles/Todos.css";
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import '../styles/Todo.css';
+import { v4 as uuidv4 } from 'uuid'; 
 
-const QuickList = ({user_name, user_id, todos, getQuickTodos, createQuickTodo}) => {
-    const [ newTodo, setNewTodos ] = useState({
-        todo_name : "",
-        // user_id : user_id
-    })
+function QuickList () {
 
-    const navigate = useNavigate()
+    const initialTaskState = {
+        task_description : "",
+        task_id : "",
+        completed : false
+    }
 
-    useEffect(() => {
-        getQuickTodos()
-    },[getQuickTodos,todos])
+    const [task, setTask] = useState(initialTaskState)
+
+    const [ lsTasks , setLsTasks ] = useState([])
+
+    let currentTasks = []
 
     const textBoxChanges = e => {
         e.persist();
-        setNewTodos({
-        ...newTodo,
-        [e.target.name]: e.target.value,
+        setTask({
+          ...task,
+          [e.target.name]: e.target.value,
         });
     };
 
-  const formSubmit = (e) => {
-      e.preventDefault();
-      createQuickTodo(newTodo)
-      setNewTodos({...newTodo, todo_name: ""})
-  }
+    useEffect(() => {
+        const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+        if (storedTasks) {
+            setLsTasks(storedTasks);
+        }
+    },[setLsTasks])
+
+    const toggleCompleted = (task_id) => {
+        setLsTasks(lsTasks.map(task => {
+            if (task.task_id === task_id) {
+                return {
+                    ...task,
+                    completed: !task.completed
+                }
+            } else {
+                return task
+            }
+        }))
+        localStorage.setItem('tasks', JSON.stringify(lsTasks))
+    }
+
+    const formSubmit = e => {
+        e.preventDefault();
+        if(task.task_description){
+            const newTask = {
+                ...task,
+                task_id: uuidv4()
+            };
+            currentTasks.push(newTask)
+            setLsTasks([...lsTasks, newTask])
+            localStorage.setItem('tasks', JSON.stringify([...lsTasks, newTask]))
+            setTask(initialTaskState)
+        }
+    }
+
+    const clearCompleted = () => {
+        const filteredTasks = lsTasks.filter(task => !task.completed);
+        setLsTasks(filteredTasks);
+        localStorage.setItem('tasks', JSON.stringify(filteredTasks));
+    }
 
     return (
-        <div className='todos-outer-div'>
-            <div className='logout-div'>
-                <button
-                    onClick={() => navigate("/")}>Back
-                </button>
-                <Logout /> 
-            </div>
-            <div className='main-todos-div'>
-                <h2><b className='name'>Quick </b>2do lists</h2>
+        <div className='todo-outer-div'>
+            <div className='todo-main-div'>
+                <h2>Quick list</h2>
                 <form 
-                    onSubmit={formSubmit} 
+                    onSubmit={formSubmit}
                     className="add-todo-form"
-                    autoComplete='off'
-                >
+                    autoComplete='off'>
                     <input 
                         type='text'
-                        name='todo_name'
-                        id='todo_name'
-                        value={newTodo.todo_name}
+                        name="task_description"
+                        id='task_description'
+                        placeholder='Add new item'
+                        value={task.task_description}
                         onChange={textBoxChanges}
-                        placeholder='List name'
                     />
                     <button className='add-button'>Add</button>
                 </form>
-                <div className='todo-list'>
-                    {todos.map(todo => (
+                <div>
+                    {lsTasks.map(task => (
+                        task ? 
                         <div 
-                            className='todo' 
-                            key={todo.todo_name}
-                            // onClick={() => navigate(`/users/${user_id}/todos/${todo.todo_id}`)}
-                            >
-                            <p>{todo.todo_name}</p>
-                        </div>
-                    ))}
-                </div>                
+                            className={`task${task.completed? ' completed' : '' }`}
+                            key={task.task_id}
+                            onClick={() => toggleCompleted(task.task_id)}>
+                            <h3>{task.task_description}</h3>
+                        </div> : null
+                    ))}  
+                </div>
+                <div className='delete-buttons-div'>
+                    <button 
+                        className="clear"
+                        onClick={clearCompleted}>
+                        Clear completed
+                    </button>
+                </div>                  
             </div>
-
         </div>
-    
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        // user_name: state.userReducer.user_name,
-        // user_id: state.userReducer.user_id,
-        todos: state.todosReducer.todos
-    }
-}
-
-export default connect(mapStateToProps, {getQuickTodos, createQuickTodo})(QuickList)
+export default QuickList

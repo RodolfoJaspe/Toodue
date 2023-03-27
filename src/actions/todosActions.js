@@ -5,15 +5,9 @@ export const FETCH_TODOS_START = "FETCH_TODOS_START";
 export const FETCH_TODOS_SUCCESS = "FETCH_TODOS_SUCCESS";
 export const FETCH_TODOS_FAILURE = "FETCH_TODOS_FAILURE";
 
-export const FETCH_QUICK_TODOS = "FETCH_QUICK_TODOS";
-
-
 export const CREATE_TODO_START = "CREATE_TODO_START";
 export const CREATE_TODO_SUCCESS = "CREATE_TODO_SUCCESS";
 export const CREATE_TODO_FAILURE = "CREATE_TODO_FAILURE";
-
-export const CREATE_QUICK_TODO = "CREATE_QUICK_TODO";
-
 
 export const DELETE_TODO_START = "DELETE_TODO_START";
 export const DELETE_TODO_SUCCESS = "DELETE_TODO_SUCCESS";
@@ -36,29 +30,16 @@ export const getTodos = (user_id) => dispatch => {
 
 export const createTodo = (todo) => dispatch => {
     dispatch({type: CREATE_TODO_START});
+    console.log(todo)
     axios.post(`${useUrl}/api/todos`, todo)
         .then(res => {
+            console.log(res)
             dispatch({type: CREATE_TODO_SUCCESS, payload: res.data})
         })
         .catch(err => {
+            console.log(err)
             dispatch({type:CREATE_TODO_FAILURE})
         })
-}
-
-export const createQuickTodo = (todo) => dispatch => {
-    console.log("create quick todo")
-    dispatch({type: CREATE_QUICK_TODO, payload: todo});
-    // axios.post(`${useUrl}/api/todos`, todo)
-    //     .then(res => {
-    //         dispatch({type: CREATE_QUICK_TODO_SUCCESS, payload: res.data})
-    //     })
-    //     .catch(err => {
-    //         dispatch({type:CREATE_QUICK_TODO_FAILURE})
-    //     })
-}
-
-export const getQuickTodos = () => dispatch => {
-    dispatch({ type: FETCH_QUICK_TODOS })
 }
 
 export const deleteTodo = (todo_id) => dispatch => {
