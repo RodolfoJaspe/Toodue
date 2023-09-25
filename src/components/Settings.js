@@ -152,7 +152,7 @@ function Settings({changePassword, changeUsername, user_name, deleteUser}) {
                         />
                     </label>
                     <button
-                        disabled = {usernameButtonDisabled}>Save</button>
+                        disabled = {passwordButtonDisabled}>Save</button>
                     <br /> 
                     <div className="password-error">
                         {errors.password.length > 0 ? (
