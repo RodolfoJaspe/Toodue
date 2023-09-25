@@ -5,6 +5,37 @@
     margin-top: 2vh;
 }
 
+.settings {
+    position:absolute;
+    top: 1vh;
+    right: 1vh;
+    height: 8vh;
+    width: 8vh;
+}
+
+.settings img{
+    height: 8vh;
+    cursor: pointer;
+}
+
+@keyframes rotate-animation {
+	0% {
+		transform: rotate(0deg);
+    }
+    50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+    }
+}
+
+.settings img:hover {
+    animation: rotate-animation 10s infinite linear;
+    
+}
+
+
 .logout-div{
     display:flex;
     justify-content: space-between;

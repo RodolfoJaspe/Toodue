@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 import { useUrl } from "../utils/urls";
 
 export const FETCH_TODOS_START = "FETCH_TODOS_START";
