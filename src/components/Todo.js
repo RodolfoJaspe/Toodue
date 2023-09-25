@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import '../styles/Todo.css';
-import {connect} from "react-redux";
-import {getTasks, createTask, toggleTask, deleteTasks} from "../actions/tasksActions";
-import { deleteTodo } from '../actions/todosActions';
+import React, { useEffect, useState } from 'react';
+import { connect } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
+import { createTask, deleteTasks, getTasks, toggleTask } from "../actions/tasksActions";
+import { deleteTodo, getTodos } from '../actions/todosActions';
+import '../styles/Todo.css';
 import Logout from './Logout';
 
-function Todo ({user_name, todos, tasks, getTasks, createTask, toggleTask, deleteTasks, deleteTodo}) {
+function Todo ({todos, tasks, getTasks, createTask, toggleTask, deleteTasks, deleteTodo, getTodos}) {
 
     const navigate = useNavigate()
 
     const {todo_id} = useParams()
+    const params = useParams()
 
     const [task, setTask] = useState({
         task_description : "",
@@ -18,6 +19,8 @@ function Todo ({user_name, todos, tasks, getTasks, createTask, toggleTask, delet
     })
 
     const currentTodo = todos.find((todo) => todo.todo_id === Number(todo_id))
+    console.log(todos)
+    console.log(tasks)
 
     const textBoxChanges = e => {
         e.persist();
@@ -29,7 +32,8 @@ function Todo ({user_name, todos, tasks, getTasks, createTask, toggleTask, delet
 
     useEffect(() => {
         getTasks(todo_id)
-    },[getTasks,todo_id])
+        getTodos(params.user_id)
+    },[getTasks, getTodos, todo_id, params,])
 
     const formSubmit = e => {
         e.preventDefault();
@@ -41,18 +45,18 @@ function Todo ({user_name, todos, tasks, getTasks, createTask, toggleTask, delet
 
     const firstDelete = () => {
         deleteTodo(todo_id)
-        navigate("/user/todos")
+        navigate(`/users/${params.user_id}/${params.user_name}/todos`)
     }
 
         return (
             <div className='todo-outer-div'>
                 <div className='logout-div'>
                     <button
-                        onClick={() => navigate("/user/todos")}>Back</button>
+                        onClick={() => navigate(`/users/${params.user_id}/${params.user_name}/todos`)}>Back</button>
                     <Logout />
                 </div>
                 <div className='todo-main-div'>
-                    <h2>{currentTodo.todo_name}</h2>
+                    {currentTodo?<h2>{currentTodo.todo_name}</h2>: null}
                     <form 
                         onSubmit={formSubmit}
                         className="add-todo-form"
@@ -109,9 +113,8 @@ function Todo ({user_name, todos, tasks, getTasks, createTask, toggleTask, delet
 const mapStateToProps = state => {
     return {
         tasks : state.tasksReducer.tasks,
-        todos : state.todosReducer.todos,
-        user_name : state.userReducer.user_name
+        todos : state.todosReducer.todos
     }
 }
-export default connect(mapStateToProps, { getTasks, createTask, toggleTask, deleteTasks, deleteTodo })(Todo)
+export default connect(mapStateToProps, { getTasks, createTask, toggleTask, deleteTasks, deleteTodo, getTodos })(Todo)
 

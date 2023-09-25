@@ -1,11 +1,12 @@
-import React,{useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { createTodo, getTodos } from "../actions/todosActions";
+import "../styles/Todos.css";
+import gear from "../utils/images/gear.png";
 import Logout from './Logout';
-import {createTodo, getTodos} from "../actions/todosActions";
-import"../styles/Todos.css";
-import { useNavigate } from 'react-router-dom';
 
-const Todos = ({user_name, user_id, todos, getTodos, createTodo}) => {
+const Todos = ({user_name, user_id, todos, getTodos, createTodo }) => {
     const [ newTodo, setNewTodos ] = useState({
         todo_name : "",
         user_id : user_id
@@ -13,9 +14,11 @@ const Todos = ({user_name, user_id, todos, getTodos, createTodo}) => {
 
     const navigate = useNavigate()
 
+    const params = useParams()
+
     useEffect(() => {
-        getTodos(user_id)
-    },[getTodos,user_id])
+        getTodos(params.user_id)
+    },[getTodos, params])
 
     const textBoxChanges = e => {
         e.persist();
@@ -33,6 +36,11 @@ const Todos = ({user_name, user_id, todos, getTodos, createTodo}) => {
 
     return (
         <div className='todos-outer-div'>
+            <div 
+                className='settings'
+                onClick={() => navigate(`/users/${params.user_id}/${params.user_name}/settings`)}>
+                <img src={gear} alt='settings' />
+            </div>
             <div className='logout-div'>
                 <button
                     onClick={() => navigate("/")}>Back
@@ -40,7 +48,7 @@ const Todos = ({user_name, user_id, todos, getTodos, createTodo}) => {
                 <Logout /> 
             </div>
             <div className='main-todos-div'>
-                <h2><b className='name'>{user_name}'s </b>2do lists</h2>
+                <h2><b className='name'>{params.user_name}'s </b>2do lists</h2>
                 <form 
                     onSubmit={formSubmit} 
                     className="add-todo-form"
@@ -61,7 +69,7 @@ const Todos = ({user_name, user_id, todos, getTodos, createTodo}) => {
                         <div 
                             className='todo' 
                             key={todo.todo_name}
-                            onClick={() => navigate(`/users/${user_id}/todos/${todo.todo_id}`)}
+                            onClick={() => navigate(`/users/${params.user_id}/${params.user_name}/todos/${todo.todo_id}`)}
                             >
                             <p>{todo.todo_name}</p>
                         </div>

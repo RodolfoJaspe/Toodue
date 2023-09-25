@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import * as yup from 'yup';
-import '../styles/Login.css';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { login, clearLoginError } from "../actions/userActions";
 import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+import { clearLoginError, login } from "../actions/userActions";
+import '../styles/Login.css';
 
-function Login({login, clearLoginError, loginError}) {
+function Login({login, clearLoginError, loginError, user_id}) {
     const navigate = useNavigate();
 
     const [user, setUser] = useState({
@@ -64,15 +64,14 @@ function Login({login, clearLoginError, loginError}) {
     });
   };
 
+  const go = (user_id, user_name) => {
+    navigate(`/users/${user_id}/${user_name}/todos`)
+  }
+
   const formSubmit = e => {
     e.preventDefault();
-    login(user, setUser)
-    setTimeout(go,1000) // to allow time for the token to be set 
+    login(user, setUser, go) 
   };
-
-  const go = () => {
-    navigate('/user/todos')
-  }
 
   return (
       <div className='login-outer-div'>
@@ -137,7 +136,8 @@ function Login({login, clearLoginError, loginError}) {
 
 const mapStateToProps = state => {
     return {
-        loginError : state.userReducer.loginError
+        loginError : state.userReducer.loginError,
+        user_id : state.userReducer.user_id
     }
 }
 

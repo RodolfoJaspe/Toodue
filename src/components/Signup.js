@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { createUser, clearSignupError } from "../actions/userActions";
+import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
-import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+import { clearSignupError, createUser } from "../actions/userActions";
 import '../styles/Signup.css';
 
 function Signup ({createUser, error, clearSignupError }) {
@@ -67,12 +67,11 @@ function Signup ({createUser, error, clearSignupError }) {
 
     const formSubmit = e => {
         e.preventDefault();
-        createUser(user, setUser);
-        setTimeout(go, 1000);
+        createUser(user, setUser, go);
     }
 
-    const go = () => {
-        navigate('/user/todos')
+    const go = (user_id, user_name) => {
+        navigate(`/users/${user_id}/${user_name}/todos`)
     }
 
     return (
