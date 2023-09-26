@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { changePassword, changeUsername, deleteUser } from '../actions/userActions';
+import "../styles/Settings.css";
 
 
 function Settings({changePassword, changeUsername, user_name, deleteUser}) {
@@ -17,6 +18,8 @@ function Settings({changePassword, changeUsername, user_name, deleteUser}) {
 
     const [usernameButtonDisabled, setusernameButtonDisabled] = useState(true);
     const [passwordButtonDisabled, setPasswordButtonDisabled] = useState(true);
+
+    const [deleteButton, setDeleteButton] = useState(false);
 
     const params = useParams()
 
@@ -114,56 +117,81 @@ function Settings({changePassword, changeUsername, user_name, deleteUser}) {
        
     }
     return (
-        <div>
+        <div className='settings'>
             <div style={{textAlign : 'center'}}>
                <h2>Settings</h2>
                 <h3>username: {params.user_name}</h3> 
             </div>
             
             <div>
-                <br/>
-                <form onSubmit={submitUsername}>
+                <div className='settings-forms'>
+                    <form onSubmit={submitUsername}>
                     <h3>Change Username</h3>
-                    <label htmlFor='user_name'>New Username
-                        <input
-                            name="user_name"
-                            value={user.user_name}
-                            onChange={usernameTextBoxChanges}
-                            placeholder="At least 3 characters long" 
-                        />
-                    </label>
-                    <button
-                        disabled ={usernameButtonDisabled}>Save</button>
-                    <br /> 
+                    <div className='settings-form-div'>
+                        <label htmlFor='user_name'>New Username
+                            <input
+                                name="user_name"
+                                value={user.user_name}
+                                onChange={usernameTextBoxChanges}
+                                placeholder="At least 3 characters long" 
+                            />
+                        </label>
+                        <button
+                            disabled ={usernameButtonDisabled}>Save
+                        </button>
+                    </div>
+                  
                     <div className="username-error">
                         {errors.user_name.length > 0 ? (
                         <p className='username-error-p'>{errors.user_name}</p>
                         ) : null}  
                     </div>
-                </form>
-                <form onSubmit={submitPassword}>
+                    </form>
+                    <form onSubmit={submitPassword}>
                     <h3>Change Password</h3>
-                    <label htmlFor='password'>New Password
-                        <input
-                            name="password"
-                            value={user.password}
-                            onChange={passwordTextBoxChanges}
-                            placeholder="At least 6 characters long" 
-                        />
-                    </label>
-                    <button
-                        disabled = {passwordButtonDisabled}>Save</button>
-                    <br /> 
+                    <div className='settings-form-div'>
+                        <label htmlFor='password'>New Password
+                            <input
+                                name="password"
+                                value={user.password}
+                                onChange={passwordTextBoxChanges}
+                                placeholder="At least 6 characters long" 
+                            />
+                        </label>
+                        <button
+                            disabled = {passwordButtonDisabled}>Save
+                        </button>
+                    </div>
                     <div className="password-error">
                         {errors.password.length > 0 ? (
-                        <p className='password-error-p'>{errors.password}</p>
+                        <p className='username-error-p'>{errors.password}</p>
                         ) : null}  
                     </div>
-                </form>
-                <button
-                    onClick={() => deleteUser(params.user_id,navigate)}>
+                    </form>
+                </div>
+                
+                <div className='delete-account-div'>
+                   <button 
+                    onClick={() => setDeleteButton(true)}
+                    className="delete-button">
                         Delete Account
-                </button>
+                    </button> 
+                </div>
+                {deleteButton? (
+                    <div className='delete-warning'>
+                        <h2>U SHRRR<b className='question-mark'>?</b></h2>
+                        <div className='yup-nope-div'>
+                            <button
+                                onClick={() => deleteUser(params.user_id,navigate)}
+                                className='delete-button'>YUP
+                            </button>
+                            <button
+                                onClick={() => setDeleteButton(false)}>
+                                Nope
+                            </button>
+                        </div>
+                    </div>
+                ):null}
             </div>
         </div>
     )

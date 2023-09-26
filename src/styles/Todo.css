@@ -27,11 +27,6 @@
   font-size: 1.3rem;
 }
 
-.delete-button {
-    background-color: brown;
-    color: rgb(255, 247, 244)
-}
-
 .delete-buttons-div {
     display: flex;
     flex-direction: column;

@@ -1,0 +1,38 @@
+.settings {
+    width: 100%;
+    max-width: 600px;
+}
+.delete-account-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5vh;
+}
+
+.settings-form-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.settings-forms {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.settings-form-div label {
+    color: rgb(164, 54, 42);
+}
+
+.settings h2 {
+    font-size: 2rem;
+}
+
+.settings h3 {
+    font-size: 1.5rem;
+    text-align: center;
+}
+

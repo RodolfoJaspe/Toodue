@@ -22,16 +22,6 @@
     margin-top: 3vh;
 }
 
-.login-outer-div input{
-    background: rgb(255, 247, 244);
-    border:1px solid rgb(178, 203, 203);
-    border-radius: 5vw;
-    color: rgb(0, 101, 101);
-    padding: 2vw;
-    width:95%;
-    font-size: 1rem;
-}
-
 .login-error {
     background: rgba(33, 48, 48, 0.897);
     position:fixed;
@@ -84,17 +74,11 @@
     background: rgb(233, 226, 223);
 }
 
-@media(min-width: 800px) and (orientation: landscape){
-
-}
-
 @media(min-width: 1200px) and (orientation: landscape){
     .login-outer-div {
         width: 50%;
     }
-    .login-outer-div input{
-        padding: 1vw;
-    }
+
     .close-login-error {
         padding:2vh 3vh;
     }

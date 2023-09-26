@@ -5,8 +5,9 @@ body {
 }
 
 .title {
-    text-align: center;
+    text-align: left;
     margin-top: 2vh;
+    padding-left: 2vw;
     border-bottom: 1px solid rgba(40, 121, 121, 0.486);
     width: 100%;
 }
@@ -24,9 +25,21 @@ button {
   background: rgb(255, 247, 244);
   border-radius: 10vw;
   border: 0.1px solid rgb(168, 87, 78);
-  padding: 3vw 8vw;
+  padding: 1.5vh 4vh;
   cursor: pointer;
   font-family: "Hujan";
+}
+
+.delete-button {
+    background-color: brown;
+    color: rgb(255, 247, 244);
+}
+
+.yup-nope-div {
+    width: 100vw;
+    max-width: 400px;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .app {
@@ -38,18 +51,21 @@ button {
   color: rgb(0,75,75)
 }
 
+input{
+    background: rgb(255, 247, 244);
+    border:1px solid rgb(178, 203, 203);
+    border-radius: 5vw;
+    color: rgb(0, 101, 101);
+    padding: 2vh;
+    width:95%;
+    font-size: 1rem;
+}
+
 ::placeholder {
     color:rgba(114, 133, 133, 0.749);
     font-size: .8rem;
   }
 
-
-@media(min-width: 1200px){
-    button {
-        font-size: 1.5rem;
-        padding: 1vw 3vw;
-      }
-}
 
 @font-face {
     font-family: 'Hujan';

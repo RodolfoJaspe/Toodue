@@ -37,7 +37,7 @@ const Todos = ({user_name, user_id, todos, getTodos, createTodo }) => {
     return (
         <div className='todos-outer-div'>
             <div 
-                className='settings'
+                className='settings-icon'
                 onClick={() => navigate(`/users/${params.user_id}/${params.user_name}/settings`)}>
                 <img src={gear} alt='settings' />
             </div>

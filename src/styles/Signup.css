@@ -18,16 +18,6 @@
     font-size: 1.5rem;
 }
 
-.signup-outer-div input{
-    background: rgb(255, 247, 244);
-    border:1px solid rgb(178, 203, 203);
-    border-radius: 5vw;
-    color: rgb(0, 101, 101);
-    padding: 2vw;
-    width:94%;
-    font-size: 1rem;
-}
-
 .button-div {
     margin-top: 10%;
     background: rgb(255, 247, 244); 
@@ -99,9 +89,7 @@
     .signup-outer-div {
         width: 50%;
     }
-    .signup-outer-div input{
-        padding: 1vw;
-    }
+
     .close-signup-error {
         padding:2vh 3vh;
     }

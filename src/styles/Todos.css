@@ -5,7 +5,7 @@
     margin-top: 2vh;
 }
 
-.settings {
+.settings-icon {
     position:absolute;
     top: 1vh;
     right: 1vh;
@@ -13,7 +13,7 @@
     width: 8vh;
 }
 
-.settings img{
+.settings-icon img{
     height: 8vh;
     cursor: pointer;
 }
@@ -30,9 +30,8 @@
     }
 }
 
-.settings img:hover {
+.settings-icon img:hover {
     animation: rotate-animation 10s infinite linear;
-    
 }
 
 
@@ -86,16 +85,6 @@
     justify-content: space-between;
     align-items: center;
     width: 90%;
-}
-
-.add-todo-form input{
-    background: rgb(255, 247, 244);
-    border:1px solid rgb(178, 203, 203);
-    border-radius: 10vw;
-    color: rgb(0, 100, 100);
-    padding: 3vw;
-    width: 60%;
-    margin-right: 2vw;
 }
 
 .add-button {
