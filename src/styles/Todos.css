@@ -16,6 +16,7 @@
 .settings-icon img{
     height: 8vh;
     cursor: pointer;
+    animation: rotate-animation 10s infinite linear;
 }
 
 @keyframes rotate-animation {
@@ -28,10 +29,6 @@
 	100% {
 		transform: rotate(360deg);
     }
-}
-
-.settings-icon img:hover {
-    animation: rotate-animation 10s infinite linear;
 }
 
 
