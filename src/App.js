@@ -16,7 +16,7 @@ function App ({user_id, user_name}) {
     return (
         <Router>
             <div className="app">
-                <h1 className="title"><Link to = {user_id?`/users/${user_id}/${user_name}/todos`:'/'}>Toodue</Link></h1> 
+                <h1 className="title"><Link to = {user_id?`/users/${user_id}/${user_name}/todos`:'/'}>td</Link></h1> 
                 <Routes>
                     <Route exact path="/" element={<Landing />}/>
                     <Route path="/login" element={<Login />}/>
