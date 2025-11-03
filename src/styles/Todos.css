@@ -51,6 +51,7 @@
 
 .name {
     color:rgb(164, 54, 42);
+    font-size: 2rem;
 }
 
 .todo-list {
@@ -65,7 +66,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgb(0,75,75);
+    background-color: rgb(164, 54, 42);
     border: 0.1px solid rgba(0, 100, 100, 0.214);
     border-radius: 5px;
     padding: 0 2vw;
@@ -82,6 +83,14 @@
     justify-content: space-between;
     align-items: center;
     width: 90%;
+}
+
+.add-todo-form input {
+    background: rgb(255, 247, 244);
+    border:1px solid rgb(178, 203, 203);
+    border-radius: 10vw;
+    color: rgb(0, 100, 100);
+    padding: 3vw;
 }
 
 .add-button {

@@ -71,7 +71,7 @@ function Todo ({todos, tasks, getTasks, createTask, toggleTask, deleteTasks, del
                         />
                         <button className='add-button'>Add</button>
                     </form>
-                    <div>
+                    <div className='task-list'>
                         {tasks.map(task => (
                             <div 
                                 onClick={() => toggleTask(task.task_id, tasks)}
