@@ -83,7 +83,7 @@ function QuickList () {
                     />
                     <button className='add-button'>Add</button>
                 </form>
-                <div>
+                <div className='task-list'>
                     {lsTasks.map(task => (
                         task ? 
                         <div 
