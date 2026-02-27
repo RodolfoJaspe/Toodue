@@ -32,7 +32,7 @@ const headers = {
 
 export const createUser = (user, setUser, go) => dispatch => {
     dispatch({type: CREATE_USER_START})
-    axios.post(`${useUrl}/api/users/signup/`, user).then(res => {
+    axios.post(`${useUrl}/api/users/signup`, user).then(res => {
         console.log(res)
         setUser({
             user_name: "",
@@ -52,7 +52,7 @@ export const createUser = (user, setUser, go) => dispatch => {
 
 export const login = (user, setUser, go) => dispatch => {
     dispatch({ type: USER_LOGIN_START})
-    axios.post(`${useUrl}/api/users/login/`, user).then(
+    axios.post(`${useUrl}/api/users/login`, user).then(
         res => {
             setUser({
                 user_name: "",
@@ -67,7 +67,8 @@ export const login = (user, setUser, go) => dispatch => {
         }
     ).catch(err => {
         console.log(err)
-        dispatch({type: USER_LOGIN_FAILURE, payload: err.response.data.message})
+        const errorMessage = err.response?.data?.message || 'Network error. Please check your connection.'
+        dispatch({type: USER_LOGIN_FAILURE, payload: errorMessage})
     })
 }
 
