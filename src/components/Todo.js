@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
-import { createTask, deleteTasks, getTasks, toggleTask } from "../actions/tasksActions";
+import { createTask, deleteTasks, getTasks, toggleTask, reorderTasks } from "../actions/tasksActions";
 import { deleteTodo, getTodos } from '../actions/todosActions';
 import '../styles/Todo.css';
 import Logout from './Logout';
@@ -42,11 +42,57 @@ function Todo ({todos, tasks, getTasks, createTask, toggleTask, deleteTasks, del
     }
 
     const [deleteButton, setDeleteButton] = useState(false);
+    const [draggedTask, setDraggedTask] = useState(null);
 
     const firstDelete = () => {
         deleteTodo(todo_id)
         navigate(`/users/${params.user_id}/${params.user_name}/todos`)
     }
+
+    const handleDragStart = (e, task) => {
+        setDraggedTask(task);
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', e.target.innerHTML);
+        e.target.classList.add('dragging');
+    };
+
+    const handleDragEnd = (e) => {
+        e.target.classList.remove('dragging');
+        setDraggedTask(null);
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if (e.target.classList.contains('task')) {
+            e.target.classList.add('drag-over');
+        }
+    };
+
+    const handleDragLeave = (e) => {
+        if (e.target.classList.contains('task')) {
+            e.target.classList.remove('drag-over');
+        }
+    };
+
+    const handleDrop = (e, targetTask) => {
+        e.preventDefault();
+        e.target.classList.remove('drag-over');
+        
+        if (!draggedTask || draggedTask.task_id === targetTask.task_id) {
+            return;
+        }
+
+        const draggedIndex = tasks.findIndex(task => task.task_id === draggedTask.task_id);
+        const targetIndex = tasks.findIndex(task => task.task_id === targetTask.task_id);
+        
+        const newTasks = [...tasks];
+        newTasks.splice(draggedIndex, 1);
+        newTasks.splice(targetIndex, 0, draggedTask);
+        
+        reorderTasks(newTasks, todo_id);
+        setDraggedTask(null);
+    };
 
         return (
             <div className='todo-outer-div'>
@@ -74,9 +120,16 @@ function Todo ({todos, tasks, getTasks, createTask, toggleTask, deleteTasks, del
                     <div className='task-list'>
                         {tasks.map(task => (
                             <div 
+                                draggable
+                                onDragStart={(e) => handleDragStart(e, task)}
+                                onDragEnd={handleDragEnd}
+                                onDragOver={handleDragOver}
+                                onDragLeave={handleDragLeave}
+                                onDrop={(e) => handleDrop(e, task)}
                                 onClick={() => toggleTask(task.task_id, tasks)}
                                 className={`task${task.completed? ' completed' : '' }`}
-                                key={task.task_id}>
+                                key={task.task_id}
+                                style={{ cursor: 'move' }}>
                                 <h3>{task.task_description}</h3>
                             </div>
                         ))}  
@@ -122,5 +175,5 @@ const mapStateToProps = state => {
         todos : state.todosReducer.todos
     }
 }
-export default connect(mapStateToProps, { getTasks, createTask, toggleTask, deleteTasks, deleteTodo, getTodos })(Todo)
+export default connect(mapStateToProps, { getTasks, createTask, toggleTask, deleteTasks, deleteTodo, getTodos, reorderTasks })(Todo)
 

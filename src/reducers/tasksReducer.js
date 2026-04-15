@@ -1,4 +1,4 @@
-import {FETCH_TASKS_START, FETCH_TASKS_SUCCESS, FETCH_TASKS_FAILURE, CREATE_TASK_START, CREATE_TASK_SUCCESS, CREATE_TASK_FAILURE, TOGGLE_TASK, DELETE_TASK_SUCCESS, CREATE_QUICK_TASK, FETCH_QUICK_TASKS, DELETE_QUICK_TASKS} from "../actions/tasksActions";
+import {FETCH_TASKS_START, FETCH_TASKS_SUCCESS, FETCH_TASKS_FAILURE, CREATE_TASK_START, CREATE_TASK_SUCCESS, CREATE_TASK_FAILURE, TOGGLE_TASK, DELETE_TASK_SUCCESS, CREATE_QUICK_TASK, FETCH_QUICK_TASKS, DELETE_QUICK_TASKS, REORDER_TASKS} from "../actions/tasksActions";
 import { USER_LOGOUT } from "../actions/userActions";
 
 const initialState = {
@@ -27,6 +27,8 @@ export const tasksReducer = (state = initialState, action) => {
         case DELETE_QUICK_TASKS:
             return {...state, tasks: action.payload};
         case TOGGLE_TASK:
+            return {...state, tasks: action.payload};
+        case REORDER_TASKS:
             return {...state, tasks: action.payload};
         case DELETE_TASK_SUCCESS:
             const filteredTasks = state.tasks.filter(task => task.task_id !== action.payload.task_id)

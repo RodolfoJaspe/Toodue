@@ -40,6 +40,21 @@
   width: 100%;
   max-width: 1280px;
   color: white;
+  transition: all 0.3s ease;
+}
+
+.task:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.task.dragging {
+  opacity: 0.5;
+  transform: rotate(5deg);
+}
+
+.task.drag-over {
+  border-top: 3px solid rgb(164, 54, 42);
 }
 
 .delete-buttons-div {

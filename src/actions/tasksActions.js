@@ -20,6 +20,7 @@ export const FETCH_QUICK_TASKS = "FETCH_QUICK_TASKS";
 export const DELETE_QUICK_TASKS = "DELETE_QUICK_TASKS";
 
 export const TOGGLE_TASK = "TOGGLE_TASK";
+export const REORDER_TASKS = "REORDER_TASKS";
 
 
 const headers = {
@@ -86,4 +87,13 @@ export const deleteTasks = (tasks) => dispatch => {
             })
     });
     
+}
+
+export const reorderTasks = (tasks, todo_id) => dispatch => {
+    // Update local state immediately for better UX
+    dispatch({type: REORDER_TASKS, payload: tasks});
+    
+    // Optionally send the new order to the backend
+    // This would require an API endpoint to save task order
+    // For now, we'll just keep it in the local state
 }
