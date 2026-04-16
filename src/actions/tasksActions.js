@@ -31,7 +31,18 @@ export const getTasks = (todo_id) => dispatch => {
     dispatch({type: FETCH_TASKS_START});
     axios.get(`${useUrl}/api/tasks/${todo_id}`, {headers})
         .then(res => {
-            dispatch({type: FETCH_TASKS_SUCCESS, payload: res.data})
+            const tasks = res.data;
+            const savedOrder = JSON.parse(localStorage.getItem(`task_order_${todo_id}`));
+            if (savedOrder) {
+                tasks.sort((a, b) => {
+                    const aIndex = savedOrder.indexOf(a.task_id);
+                    const bIndex = savedOrder.indexOf(b.task_id);
+                    if (aIndex === -1) return 1;
+                    if (bIndex === -1) return -1;
+                    return aIndex - bIndex;
+                });
+            }
+            dispatch({type: FETCH_TASKS_SUCCESS, payload: tasks})
         }
         ).catch(err => {
             dispatch({type:FETCH_TASKS_FAILURE})
@@ -90,10 +101,7 @@ export const deleteTasks = (tasks) => dispatch => {
 }
 
 export const reorderTasks = (tasks, todo_id) => dispatch => {
-    // Update local state immediately for better UX
+    const order = tasks.map(task => task.task_id);
+    localStorage.setItem(`task_order_${todo_id}`, JSON.stringify(order));
     dispatch({type: REORDER_TASKS, payload: tasks});
-    
-    // Optionally send the new order to the backend
-    // This would require an API endpoint to save task order
-    // For now, we'll just keep it in the local state
 }
