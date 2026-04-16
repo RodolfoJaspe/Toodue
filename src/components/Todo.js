@@ -6,7 +6,7 @@ import { deleteTodo, getTodos } from '../actions/todosActions';
 import '../styles/Todo.css';
 import Logout from './Logout';
 
-function Todo ({todos, tasks, getTasks, createTask, toggleTask, deleteTasks, deleteTodo, getTodos}) {
+function Todo ({todos, tasks, getTasks, createTask, toggleTask, deleteTasks, deleteTodo, getTodos, reorderTasks}) {
 
     const navigate = useNavigate()
 
