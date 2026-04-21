@@ -7,14 +7,14 @@ import gear from "../utils/images/gear.png";
 import Logout from './Logout';
 
 const Todos = ({user_name, user_id, todos, getTodos, createTodo }) => {
-    const [ newTodo, setNewTodos ] = useState({
-        todo_name : "",
-        user_id : user_id
-    })
-
     const navigate = useNavigate()
 
     const params = useParams()
+
+    const [ newTodo, setNewTodos ] = useState({
+        todo_name : "",
+        user_id : params.user_id
+    })
 
     useEffect(() => {
         getTodos(params.user_id)
